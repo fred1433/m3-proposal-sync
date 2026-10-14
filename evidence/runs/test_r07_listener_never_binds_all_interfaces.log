@@ -1,0 +1,8 @@
+# tests/test_review_regressions.py::test_r07_listener_never_binds_all_interfaces
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# Events enabled without an explicit LAN bind_host, or with 0.0.0.0 / ::, are refused.
+
+[T+00:00] bind_host='': events.enabled requires an explicit LAN bind_host; 0.0.0.0 and :: are refused
+[T+00:00] bind_host='0.0.0.0': events.enabled requires an explicit LAN bind_host; 0.0.0.0 and :: are refused
+[T+00:00] bind_host='::': events.enabled requires an explicit LAN bind_host; 0.0.0.0 and :: are refused

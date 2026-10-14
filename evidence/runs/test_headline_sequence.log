@@ -1,0 +1,35 @@
+# tests/test_p0.py::test_headline_sequence
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# README opening: missed notification -> reconciliation finds it -> receiver commits -> ack lost ->
+# retry has no second effect; then an interrupted scan refuses to remove a valid proposal.
+
+
+== scan 1: two proposals in the source
+[T+00:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+00:00] EXPORTMI scan complete: 2 rows in 2 page(s)
+[T+00:00] queued seq=1 100/4100001/1/0 state=active
+[T+00:00] queued seq=2 100/4100002/1/0 state=active
+[T+00:00] deliver seq=1 -> 200 applied
+[T+00:00] deliver seq=2 -> 200 applied
+[T+00:00] receiver: {'100/4100001/1/0': ('active', 1), '100/4100002/1/0': ('active', 2)}
+
+== source event
+[T+02:00] source: proposal 100/4100003/1/0 created; notification fixture DROPS its notification
+[T+02:00] receiver fault armed: next applied delivery commits, then the connection closes before the 200
+
+== scan 2 at the next scheduled poll
+[T+15:00] EXPORTMI scan complete: 3 rows in 3 page(s)
+[T+15:00] queued seq=3 100/4100003/1/0 state=active
+[T+15:00] ERROR deliver seq=3: transport failure: RemoteDisconnected: Remote end closed connection without response; kept pending, retry in 9.7s
+[T+15:00] receiver: 100/4100003/1/0 committed 13 min after creation (polling interval 15 min; simulated time)
+[T+16:00] deliver seq=3 -> 200 duplicate
+[T+18:00] receiver: delivery tenant-a:m3-prod:g1:100/4100003/1/0:3: 1 delivery record, 1 effect; agent outbox {'delivered': 3}
+
+== scan 3: 100/4100001/1/0 really deleted in the source; page 2 of the scan fails (HTTP 500, every retry)
+[T+33:00] MI EXPORTMI/Select attempt 1 failed (http: HTTP 500); retry in 0.07s
+[T+33:00] MI EXPORTMI/Select attempt 2 failed (http: HTTP 500); retry in 0.85s
+[T+33:01] MI EXPORTMI/Select attempt 3 failed (http: HTTP 500); retry in 1.53s
+[T+33:02] scan not authoritative (page 2 failed: http: HTTP 500); no absence processing, checkpoint not advanced
+[T+33:02] scan result: complete=False reason='page 2 failed: http: HTTP 500'
+[T+33:02] receiver: {'100/4100001/1/0': ('active', 1), '100/4100002/1/0': ('active', 2), '100/4100003/1/0': ('active', 3)}

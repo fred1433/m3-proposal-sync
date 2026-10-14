@@ -1,0 +1,15 @@
+# tests/test_judge_sequences.py::test_a11_configuration_change_resends_derived_values
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A11: changing ITEM-1's BOX->PCS conversion from 12 to 24 changes the delivered value.
+
+[T+00:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+00:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+00:00] queued seq=1 100/8500001/1/0 state=active
+[T+00:00] deliver seq=1 -> 200 applied
+[T+00:00] conversion 12: receiver value {'amount': '1.2E+2', 'currency': 'EUR', 'status': 'ok'}
+[T+15:00] registered: generation 2; receiver holds 1 keys; local view resynchronized (dropped 0 pending, imported 1, reset 0)
+[T+15:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+15:00] queued seq=2 100/8500001/1/0 state=active
+[T+15:00] deliver seq=2 -> 200 applied
+[T+15:00] conversion 24: receiver value {'amount': '2.4E+2', 'currency': 'EUR', 'status': 'ok'}

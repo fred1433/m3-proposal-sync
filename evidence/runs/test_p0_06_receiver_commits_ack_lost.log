@@ -1,0 +1,25 @@
+# tests/test_p0.py::test_p0_06_receiver_commits_ack_lost
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# P0 receiver commits, acknowledgement is lost: several sends, one durable effect; reuse of the
+# delivery identifier with a different payload is detected.
+
+[T+00:00] receiver fault: the next 2 applied deliveries commit and then drop the connection
+
+== scan 1
+[T+00:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+00:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+00:00] queued seq=1 100/4600001/1/0 state=active
+[T+00:00] ERROR deliver seq=1: transport failure: RemoteDisconnected: Remote end closed connection without response; kept pending, retry in 9.7s
+[T+01:00] deliver seq=1 -> 200 duplicate
+
+== scan 2: quantity change
+[T+18:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+18:00] queued seq=2 100/4600001/1/0 state=active
+[T+18:00] ERROR deliver seq=2: transport failure: RemoteDisconnected: Remote end closed connection without response; kept pending, retry in 4.5s
+[T+19:00] deliver seq=2 -> 200 duplicate
+[T+21:00] receiver deliveries: [('tenant-a:m3-prod:g1:100/4600001/1/0:1', 'applied'), ('tenant-a:m3-prod:g1:100/4600001/1/0:2', 'applied')]
+[T+21:00] receiver effects per delivery id: [('tenant-a:m3-prod:g1:100/4600001/1/0:1', 1), ('tenant-a:m3-prod:g1:100/4600001/1/0:2', 1)]; HTTP requests received: 6
+
+== same delivery id, different payload
+[T+21:00] receiver answer: 409 {'result': 'conflict', 'delivery_id': 'tenant-a:m3-prod:g1:100/4600001/1/0:1'}

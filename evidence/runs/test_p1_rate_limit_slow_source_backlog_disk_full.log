@@ -1,0 +1,116 @@
+# tests/test_p1.py::test_p1_rate_limit_slow_source_backlog_disk_full
+# outcome: PASSED
+# agent code inside the test process, real clock for the rate part; M3 source behaviour is SIMULATED (sim/m3sim.py)
+# P1 bounded request rate measured at the source, timeouts retried within bounds, queue exhaustion and
+# persistence failure visible with checkpoints left safe.
+
+rate limit 20/s burst 1: 30 EXPORTMI pages, complete=True, max calls in any 1 s window measured at the simulator = 20
+MI EXPORTMI/Select attempt 1 failed (transport: TimeoutError: timed out); retry in 0.01s
+MI EXPORTMI/Select attempt 2 failed (transport: TimeoutError: timed out); retry in 0.05s
+MI EXPORTMI/Select attempt 3 failed (transport: TimeoutError: timed out); retry in 0.07s
+source slower than the 0.3 s client timeout: calls made=3 (attempts=3), complete=False, reason='page 1 failed: transport: TimeoutError: timed out'
+registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+EXPORTMI scan complete: 30 rows in 1 page(s)
+WARNING outbox full: 20 changes deferred to later scans
+queued seq=1 100/6400001/1/0 state=active
+queued seq=2 100/6400002/1/0 state=active
+queued seq=3 100/6400003/1/0 state=active
+queued seq=4 100/6400004/1/0 state=active
+queued seq=5 100/6400005/1/0 state=active
+queued seq=6 100/6400006/1/0 state=active
+queued seq=7 100/6400007/1/0 state=active
+queued seq=8 100/6400008/1/0 state=active
+queued seq=9 100/6400009/1/0 state=active
+queued seq=10 100/6400010/1/0 state=active
+30 new proposals, max_pending=10: queued=10 complete=False reason='outbox full: 20 changes deferred to later scans'; outbox={'pending': 10} last_complete_scan=None
+deliver seq=1 -> 200 applied
+deliver seq=2 -> 200 applied
+deliver seq=3 -> 200 applied
+deliver seq=4 -> 200 applied
+deliver seq=5 -> 200 applied
+deliver seq=6 -> 200 applied
+deliver seq=7 -> 200 applied
+deliver seq=8 -> 200 applied
+deliver seq=9 -> 200 applied
+deliver seq=10 -> 200 applied
+EXPORTMI scan complete: 30 rows in 1 page(s)
+WARNING outbox full: 10 changes deferred to later scans
+queued seq=11 100/6400011/1/0 state=active
+queued seq=12 100/6400012/1/0 state=active
+queued seq=13 100/6400013/1/0 state=active
+queued seq=14 100/6400014/1/0 state=active
+queued seq=15 100/6400015/1/0 state=active
+queued seq=16 100/6400016/1/0 state=active
+queued seq=17 100/6400017/1/0 state=active
+queued seq=18 100/6400018/1/0 state=active
+queued seq=19 100/6400019/1/0 state=active
+queued seq=20 100/6400020/1/0 state=active
+deliver seq=11 -> 200 applied
+deliver seq=12 -> 200 applied
+deliver seq=13 -> 200 applied
+deliver seq=14 -> 200 applied
+deliver seq=15 -> 200 applied
+deliver seq=16 -> 200 applied
+deliver seq=17 -> 200 applied
+deliver seq=18 -> 200 applied
+deliver seq=19 -> 200 applied
+deliver seq=20 -> 200 applied
+EXPORTMI scan complete: 30 rows in 1 page(s)
+queued seq=21 100/6400021/1/0 state=active
+queued seq=22 100/6400022/1/0 state=active
+queued seq=23 100/6400023/1/0 state=active
+queued seq=24 100/6400024/1/0 state=active
+queued seq=25 100/6400025/1/0 state=active
+queued seq=26 100/6400026/1/0 state=active
+queued seq=27 100/6400027/1/0 state=active
+queued seq=28 100/6400028/1/0 state=active
+queued seq=29 100/6400029/1/0 state=active
+queued seq=30 100/6400030/1/0 state=active
+deliver seq=21 -> 200 applied
+deliver seq=22 -> 200 applied
+deliver seq=23 -> 200 applied
+deliver seq=24 -> 200 applied
+deliver seq=25 -> 200 applied
+deliver seq=26 -> 200 applied
+deliver seq=27 -> 200 applied
+deliver seq=28 -> 200 applied
+deliver seq=29 -> 200 applied
+deliver seq=30 -> 200 applied
+EXPORTMI scan complete: 30 rows in 1 page(s)
+after three more scan/deliver passes: outbox={'delivered': 30} complete=True
+registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+EXPORTMI scan complete: 30 rows in 1 page(s)
+ERROR persistence failed (database or disk is full); scan discarded, checkpoint not advanced
+disk full on commit: persisted=False reason='persistence: database or disk is full' last_complete_scan=None
+EXPORTMI scan complete: 30 rows in 1 page(s)
+queued seq=1 100/6400001/1/0 state=active
+queued seq=2 100/6400002/1/0 state=active
+queued seq=3 100/6400003/1/0 state=active
+queued seq=4 100/6400004/1/0 state=active
+queued seq=5 100/6400005/1/0 state=active
+queued seq=6 100/6400006/1/0 state=active
+queued seq=7 100/6400007/1/0 state=active
+queued seq=8 100/6400008/1/0 state=active
+queued seq=9 100/6400009/1/0 state=active
+queued seq=10 100/6400010/1/0 state=active
+queued seq=11 100/6400011/1/0 state=active
+queued seq=12 100/6400012/1/0 state=active
+queued seq=13 100/6400013/1/0 state=active
+queued seq=14 100/6400014/1/0 state=active
+queued seq=15 100/6400015/1/0 state=active
+queued seq=16 100/6400016/1/0 state=active
+queued seq=17 100/6400017/1/0 state=active
+queued seq=18 100/6400018/1/0 state=active
+queued seq=19 100/6400019/1/0 state=active
+queued seq=20 100/6400020/1/0 state=active
+queued seq=21 100/6400021/1/0 state=active
+queued seq=22 100/6400022/1/0 state=active
+queued seq=23 100/6400023/1/0 state=active
+queued seq=24 100/6400024/1/0 state=active
+queued seq=25 100/6400025/1/0 state=active
+queued seq=26 100/6400026/1/0 state=active
+queued seq=27 100/6400027/1/0 state=active
+queued seq=28 100/6400028/1/0 state=active
+queued seq=29 100/6400029/1/0 state=active
+queued seq=30 100/6400030/1/0 state=active
+next scan after space is back: persisted=True queued=30 last_complete_scan=1

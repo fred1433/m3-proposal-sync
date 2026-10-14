@@ -1,0 +1,24 @@
+# tests/test_p0.py::test_p0_07_process_killed_at_persistence_boundaries[scan_before_commit]
+# outcome: PASSED
+# real agent processes, wall-clock time; M3 source behaviour is SIMULATED (sim/m3sim.py)
+# P0 agent process killed (os._exit, no cleanup) at each persistence boundary: no checkpoint advances
+# beyond durably recoverable work; after restart every proposal has exactly one receiver effect.
+
+run 1 (M3SYNC_CRASH_AT=scan_before_commit): exit code 137
+after crash: agent scans=[] outbox=[] last_complete_scan=None
+after crash: receiver effects=0
+run 2 exit 0; run 3 exit 0
+  agent: registered: generation 2; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+  agent: EXPORTMI scan complete: 3 rows in 1 page(s)
+  agent: queued seq=1 100/4700001/1/0 state=active
+  agent: queued seq=2 100/4700002/1/0 state=active
+  agent: queued seq=3 100/4700003/1/0 state=active
+  agent: deliver seq=1 -> 200 applied
+  agent: deliver seq=2 -> 200 applied
+  agent: deliver seq=3 -> 200 applied
+  agent: once: complete=True reason=None rows=3 queued=3 outbox={'delivered': 3}
+  agent: registered: generation 3; receiver holds 3 keys; local view resynchronized (dropped 0 pending, imported 3, reset 0)
+  agent: EXPORTMI scan complete: 3 rows in 1 page(s)
+  agent: once: complete=True reason=None rows=3 queued=0 outbox={'delivered': 3}
+receiver effects per key: {'100/4700001/1/0': 1, '100/4700002/1/0': 1, '100/4700003/1/0': 1}
+agent outbox: [(1, 'delivered'), (2, 'delivered'), (3, 'delivered')]

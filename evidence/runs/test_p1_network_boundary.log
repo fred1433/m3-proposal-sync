@@ -1,0 +1,19 @@
+# tests/test_p1.py::test_p1_network_boundary
+# outcome: PASSED
+# real agent processes, wall-clock time; M3 source behaviour is SIMULATED (sim/m3sim.py)
+# P1 network boundary: default mode has no listening socket and only outbound connections; the optional
+# notification endpoint accepts only its approved source; the receiver refuses clients without a trusted
+# certificate.
+
+agent pid 876, receiver has 2 proposals
+lsof TCP LISTEN: (none)
+lsof UDP: (none)
+agent log: polling mode, no listening socket
+
+optional notification endpoint (events.enabled = true)
+POST from 127.0.0.1, allowed_sources=10.1.2.3 -> HTTP 403
+POST from the approved source -> HTTP 202, queued hint {'CONO': '100', 'PLPN': '6300001', 'PLPS': '1', 'PLP2': '0'}
+
+receiver side: clients without a trusted certificate
+no client certificate: refused (SSLError: [SSL: TLSV13_ALERT_CERTIFICATE_REQUIRED] tlsv13 alert certificate required (_ssl)
+certificate from another CA: refused (SSLError: [SSL: TLSV1_ALERT_UNKNOWN_CA] tlsv1 alert unknown ca (_ssl.c:2570))

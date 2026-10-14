@@ -1,0 +1,9 @@
+# tests/test_p1.py::test_p1_ion_profiles[ionapi_v2]
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# P1 ION API profiles: service-account token, v1 and v2 response contracts, MI error inside a v2 200.
+
+[T+00:00] EXPORTMI scan complete: 7 rows in 4 page(s)
+[T+00:00] ionapi_v2: complete=True rows=7 pages=4 tokens issued=1
+[T+00:00] ionapi_v2: MI error inside HTTP 200 -> nok: simulated MI error (NOK)
+[T+00:00] ionapi_v2: rejected service account -> auth: token endpoint returned HTTP 401

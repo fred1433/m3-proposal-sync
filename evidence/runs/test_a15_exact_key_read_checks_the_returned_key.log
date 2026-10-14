@@ -1,0 +1,7 @@
+# tests/test_judge_sequences.py::test_a15_exact_key_read_checks_the_returned_key
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A15: a targeted read for 8100001 that returns the row of 8100002 is refused.
+
+[T+00:00] notification read failed (MIError); reconciliation will decide
+[T+00:00] notification for 8100001 answered with 8100002's row: read_failed; outbox {}

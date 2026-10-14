@@ -1,0 +1,16 @@
+# tests/test_judge_sequences.py::test_a09_delivery_failures_make_health_degraded
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A09: an untrusted receiver CA, and sustained 5xx, turn health degraded while M3 reads succeed.
+
+[T+00:00] ERROR registration failure: SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000) (check delivery.url, certificate, receiver CA); retry in 10s
+[T+00:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+00:00] queued seq=1 100/5900001/1/0 state=active
+[T+15:00] ERROR registration failure: SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000) (check delivery.url, certificate, receiver CA); retry in 9s
+[T+15:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+15:00] untrusted receiver CA: health degraded ['registration failure: SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000) (check delivery.url, certificate, receiver CA)']
+[T+15:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+15:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+15:00] queued seq=1 100/5900001/1/0 state=active
+[T+15:00] ERROR deliver seq=1: receiver unavailable: HTTP 503; kept pending, retry in 9.7s
+[T+15:00] receiver answering 503: health degraded ['receiver unavailable: HTTP 503']

@@ -1,0 +1,16 @@
+# tests/test_judge_sequences.py::test_a10_compatibility_report_does_not_leak_identifiers
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A10: MI error messages carrying proposal or item numbers never reach the report.
+
+[T+00:00] pass          session_context: {'probe': 'PPS170MI/GetUserInfo', 'fields': ['CONO', 'DIVI', 'USID'], 'company_matches': True}
+[T+00:00] pass          exportmi_all_fields: {'sample_rows': 1, 'fields': ['POCONO', 'POPLPN', 'POPLPS', 'POPLP2', 'POFACI', 'POWHLO', 'POITNO', 'POSUNO', 'POBUYE', 'POPSTS', 'POPPQT', 'POPUUN', 'POPUPR', 'POPPUN', 'POPUCD', 'POCUCD', 'PODLDT', 'POLMDT', 'POCHNO', 'POLMTS']}
+[T+00:00] pass          default_index_order: sample rows ascending by PLPN/PLPS/PLP2 (necessary, not sufficient: verify the index definition)
+[T+00:00] pass          company_in_rows: {'matches': True}
+[T+00:00] pass          status_codes_seen: {'20': 1}
+[T+00:00] pass          unit_pairs_seen: {'PCS->PCS': 1}
+[T+00:00] pass          currencies_seen: {'EUR': 1}
+[T+00:00] pass          version_fields: {'LMDT': 1, 'CHNO': 1, 'LMTS': 1}
+[T+00:00] pass          sample_keys: ['217994c6d7']
+[T+00:00] fail          pps170mi_getpoprop: {'error_kind': 'nok', 'error_code': None, 'error_field': None, 'http_status': None}
+[T+00:00] fail          mms200mi_itgr: {'error_kind': 'nok', 'error_code': None, 'error_field': None, 'http_status': None}

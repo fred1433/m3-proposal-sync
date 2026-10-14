@@ -1,0 +1,37 @@
+# tests/test_review_regressions.py::test_r01_volume_lost_agent_reinstalled_same_identity
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# Volume /data lost, agent reinstalled with the same tenant/installation: sequence numbers restart at 1
+# under a newer installation epoch; the receiver converges to the source, no 409.
+
+[T+00:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+00:00] EXPORTMI scan complete: 5 rows in 1 page(s)
+[T+00:00] queued seq=1 100/4200001/1/0 state=active
+[T+00:00] queued seq=2 100/4200002/1/0 state=active
+[T+00:00] queued seq=3 100/4200003/1/0 state=active
+[T+00:00] queued seq=4 100/4200004/1/0 state=active
+[T+00:00] queued seq=5 100/4200005/1/0 state=active
+[T+00:00] deliver seq=1 -> 200 applied
+[T+00:00] deliver seq=2 -> 200 applied
+[T+00:00] deliver seq=3 -> 200 applied
+[T+00:00] deliver seq=4 -> 200 applied
+[T+00:00] deliver seq=5 -> 200 applied
+[T+15:00] EXPORTMI scan complete: 5 rows in 1 page(s)
+[T+15:00] queued seq=6 100/4200005/1/0 state=active
+[T+15:00] deliver seq=6 -> 200 applied
+[T+30:00] EXPORTMI scan complete: 5 rows in 1 page(s)
+[T+30:00] queued seq=7 100/4200005/1/0 state=active
+[T+30:00] deliver seq=7 -> 200 applied
+[T+45:00] EXPORTMI scan complete: 5 rows in 1 page(s)
+[T+45:00] queued seq=8 100/4200005/1/0 state=active
+[T+45:00] deliver seq=8 -> 200 applied
+[T+45:00] before loss: generation 1, receiver {'100/4200001/1/0': ('active', 1), '100/4200002/1/0': ('active', 2), '100/4200003/1/0': ('active', 3), '100/4200004/1/0': ('active', 4), '100/4200005/1/0': ('active', 8)}
+[T+45:00] volume lost; source changes 4200001 -> PPQT 999 and 4200005 -> PPQT 777; agent reinstalled
+[T+60:00] registered: generation 2; receiver holds 5 keys; local view resynchronized (dropped 0 pending, imported 5, reset 0)
+[T+60:00] EXPORTMI scan complete: 5 rows in 1 page(s)
+[T+60:00] queued seq=1 100/4200001/1/0 state=active
+[T+60:00] queued seq=2 100/4200005/1/0 state=active
+[T+60:00] deliver seq=1 -> 200 applied
+[T+60:00] deliver seq=2 -> 200 applied
+[T+60:00] new generation 2; agent outbox {'delivered': 2}
+[T+60:00] receiver PPQT 4200001=999 4200005=777

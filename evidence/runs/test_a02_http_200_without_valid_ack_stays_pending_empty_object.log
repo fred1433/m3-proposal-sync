@@ -1,0 +1,12 @@
+# tests/test_judge_sequences.py::test_a02_http_200_without_valid_ack_stays_pending[empty_object]
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A02: HTTP 200 without a valid acknowledgement never marks a delivery delivered.
+
+[T+00:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+00:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+00:00] queued seq=1 100/5700001/1/0 state=active
+[T+00:00] ERROR deliver seq=1: protocol failure: HTTP 200 without a valid acknowledgement (result=None, delivery id echoed=False); kept pending, retry in 9.7s
+[T+00:00] reply {}: outbox {'pending': 1}, health degraded ['protocol failure: HTTP 200 without a valid acknowledgement (result=None, delivery id echoed=False)']
+[T+10:00] deliver seq=1 -> 200 applied
+[T+10:00] next attempt: outbox {'delivered': 1}, receiver {'100/5700001/1/0': ('active', 1)}

@@ -1,0 +1,8 @@
+# tests/test_judge_sequences.py::test_a19_reserved_separators_are_refused
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A19: '#' and '*' make EXPORTMI prefix values with field names; the configuration refuses them.
+
+[T+00:00] separator '#': separators # and * are reserved by EXPORTMI (field-name-prefixed values), and ' delimits literals
+[T+00:00] separator '*': separators # and * are reserved by EXPORTMI (field-name-prefixed values), and ' delimits literals
+[T+00:00] simulator with SEPC '#': [{'REPL': 'POCONO 100#POPLPN 8200001'}]

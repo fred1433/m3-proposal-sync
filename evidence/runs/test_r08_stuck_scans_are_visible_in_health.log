@@ -1,0 +1,17 @@
+# tests/test_review_regressions.py::test_r08_stuck_scans_are_visible_in_health
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A value containing the separator blocks every scan: the reason names it, health turns degraded once
+# the last complete scan is older than health_max_age, and `m3sync health` exits 1.
+
+[T+00:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+00:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+00:00] queued seq=1 100/4500001/1/0 state=active
+[T+00:00] deliver seq=1 -> 200 applied
+[T+15:00] scan not authoritative (page 1: 21 values for 20 fields (truncated record, or the separator '|' occurs inside the data: choose another extract.separator)); no absence processing, checkpoint not advanced
+[T+30:00] scan not authoritative (page 1: 21 values for 20 fields (truncated record, or the separator '|' occurs inside the data: choose another extract.separator)); no absence processing, checkpoint not advanced
+[T+45:00] scan not authoritative (page 1: 21 values for 20 fields (truncated record, or the separator '|' occurs inside the data: choose another extract.separator)); no absence processing, checkpoint not advanced
+[T+60:00] scan not authoritative (page 1: 21 values for 20 fields (truncated record, or the separator '|' occurs inside the data: choose another extract.separator)); no absence processing, checkpoint not advanced
+[T+60:00] scan: complete=False reason="page 1: 21 values for 20 fields (truncated record, or the separator '|' occurs inside the data: choose another extract.separator)"
+[T+60:00] health: degraded ["no authoritative scan for 3600 s; last scan: page 1: 21 values for 20 fields (truncated record, or the separator '|' occurs inside the data: choose another extract.separator)"]
+[T+60:00] m3sync health: exit 1

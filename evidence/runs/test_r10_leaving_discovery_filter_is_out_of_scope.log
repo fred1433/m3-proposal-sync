@@ -1,0 +1,18 @@
+# tests/test_review_regressions.py::test_r10_leaving_discovery_filter_is_out_of_scope
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A proposal that leaves the discovery filter (FACI A01 -> B02) still exists: out_of_scope, not not_observed.
+
+[T+00:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+00:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+00:00] queued seq=1 100/4600001/1/0 state=active
+[T+00:00] deliver seq=1 -> 200 applied
+[T+15:00] EXPORTMI scan complete: 0 rows in 1 page(s)
+[T+15:00] absence check 100/4600001/1/0: absent from scan but present on targeted read; kept
+[T+15:00] queued seq=2 100/4600001/1/0 state=out_of_scope
+[T+15:00] deliver seq=2 -> 200 applied
+[T+30:00] EXPORTMI scan complete: 0 rows in 1 page(s)
+[T+30:00] absence check 100/4600001/1/0: absent from scan but present on targeted read; kept
+[T+45:00] EXPORTMI scan complete: 0 rows in 1 page(s)
+[T+45:00] absence check 100/4600001/1/0: absent from scan but present on targeted read; kept
+[T+45:00] receiver: {'100/4600001/1/0': ('out_of_scope', 2)} reasons=['FACI B02 outside discovery filter A01']

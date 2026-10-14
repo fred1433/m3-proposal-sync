@@ -1,0 +1,10 @@
+# tests/test_chaos.py::test_chaos_random_sigkill_while_source_mutates
+# outcome: PASSED
+# real agent processes, wall-clock time; M3 source behaviour is SIMULATED (sim/m3sim.py)
+# SIGKILL at random instants (seeded) while proposals are created, changed, deleted and re-statused;
+# after restarts the receiver matches the source and no delivery id has two effects.
+
+SIGKILLs: 15; source proposals: 39; receiver rows: 40
+mismatches source vs receiver: 0 []
+delivery ids with more than one effect: []
+receiver outcomes: [('applied', 52)]

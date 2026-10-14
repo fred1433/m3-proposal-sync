@@ -1,0 +1,16 @@
+# tests/test_p1.py::test_p1_compatibility_check_against_simulator
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# The read-only compatibility check: runs only allowlisted reads and redacts keys and values.
+
+[T+00:00] pass  session_context: {'probe': 'PPS170MI/GetUserInfo', 'fields': ['CONO', 'DIVI', 'USID'], 'company_matches': True}
+[T+00:00] pass  exportmi_all_fields: {'sample_rows': 3, 'fields': ['POCONO', 'POPLPN', 'POPLPS', 'POPLP2', 'POFACI', 'POWHLO', 'POITNO', 'POSUNO', 'POBUYE', 'POPSTS', 'POPPQT', 'POPUUN', 'POPUPR', 'POPPUN', 'POPUCD', 'POCUCD', 'PODLDT', 'POLMDT', 'POCHNO', 'POLMTS']}
+[T+00:00] pass  default_index_order: sample rows ascending by PLPN/PLPS/PLP2 (necessary, not sufficient: verify the index definition)
+[T+00:00] pass  company_in_rows: {'matches': True}
+[T+00:00] pass  status_codes_seen: {'20': 3}
+[T+00:00] pass  unit_pairs_seen: {'PCS->PCS': 3}
+[T+00:00] pass  currencies_seen: {'EUR': 3}
+[T+00:00] pass  version_fields: {'LMDT': 3, 'CHNO': 3, 'LMTS': 3}
+[T+00:00] pass  sample_keys: ['0a766bbbbd', '1982faa3f3', '8b3e0e2b2e']
+[T+00:00] pass  pps170mi_getpoprop: {'records': 1, 'fields': ['BUYE', 'CHNO', 'CONO', 'CUCD', 'DLDT', 'FACI', 'ITNO', 'LMDT', 'LMTS', 'PLP2', 'PLPN', 'PLPS', 'PPQT', 'PPUN', 'PSTS', 'PUCD', 'PUPR', 'PUUN', 'SUNO', 'WHLO']}
+[T+00:00] pass  mms200mi_itgr: {'fields': ['ITDS', 'ITGR', 'ITNO', 'STAT'], 'itgr_hash': '2d831a915b'}

@@ -1,0 +1,6 @@
+# tests/test_simulator_contract.py::test_simulator_rejects_unsupported_exportmi[PLPN from MPOPLP]
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# Simulator contract: unsupported EXPORTMI syntax is an MI error.
+
+[T+00:00] 'PLPN from MPOPLP' -> nok: EXPORTMI: field PLPN does not exist (fields need capitals and the table prefix)

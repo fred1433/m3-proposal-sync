@@ -1,0 +1,12 @@
+# tests/test_judge_sequences.py::test_a16_compatibility_check_on_empty_source_is_inconclusive
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A16: on an empty source, dependent checks are not_exercised and only invoked transactions are listed.
+
+[T+00:00] pass          session_context
+[T+00:00] pass          exportmi_all_fields
+[T+00:00] not_exercised default_index_order
+[T+00:00] not_exercised company_in_rows
+[T+00:00] not_exercised pps170mi_getpoprop
+[T+00:00] not_exercised mms200mi_itgr
+[T+00:00] transactions invoked: ['EXPORTMI/Select', 'PPS170MI/GetUserInfo']

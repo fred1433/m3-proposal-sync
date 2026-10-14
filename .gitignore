@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+*.egg-info/
+build/
+/data/
+*.db
+*.db-wal
+*.db-shm
+compatibility-report.json

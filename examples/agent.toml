@@ -1,0 +1,57 @@
+# Example configuration. Every M3-specific value must be confirmed with
+# `m3sync check` on the target installation (see M3_VALIDATION.md).
+tenant_id = "tenant-a"            # SaaS tenant (must match the client certificate O=)
+installation_id = "m3-prod"       # this M3 environment (must match the client certificate CN=)
+data_dir = "/data"                # persistent volume: state.db (outbox, checkpoints), agent.lock
+poll_interval_s = 900             # a schedule, not a recovery bound
+absence_confirmations = 2         # complete scans + targeted read before "not_observed"
+vault_file = "/data/vault.json"
+vault_key_file = "/run/secrets/m3sync_vault_key"   # mode 400/600, owned by the agent user
+
+[m3]
+profile = "grid_basic_v1"         # grid_basic_v1 | ionapi_v1 | ionapi_v2
+base_url = "https://m3-grid.example.internal:443"
+company = "100"                   # expected CONO of the API session
+ca_file = "/config/m3-ca.pem"     # trust store for the M3 endpoint; verification cannot be disabled
+rate_per_s = 5                    # shared by scans, notification reads and retries
+burst = 5
+retry_attempts = 4
+timeout_s = 30
+context_probe = "PPS170MI/GetUserInfo"   # session company probe (unverified default, see M3_VALIDATION C23)
+context_company_field = "CONO"
+
+[extract]
+table = "MPOPLP"
+prefix = "PO"
+page_cap = 1000                   # maxrecs per EXPORTMI page (documented ceiling: 10,000)
+separator = "|"                   # not # or * (reserved by EXPORTMI), not present in the data
+index_contract_verified = false   # set true only after verifying the index orders rows by PLPN first
+
+[extract.discovery_equals]        # optional equality filters pushed into the EXPORTMI query
+FACI = "A01"
+
+[filters]                         # eligibility, evaluated by the agent (empty list = any)
+warehouses = ["100", "200"]
+buyers = []
+statuses = []                     # fill with the installation's proposal status codes
+item_groups = []                  # non-empty enables MMS200MI GetItmBasic enrichment
+item_group_ttl_s = 3600
+unknown_value = "include"         # include | exclude when a value cannot be computed
+released_statuses = []            # leave empty until release semantics are validated
+
+[filters.min_value]
+EUR = 500
+
+[filters.unit_conversions]       # per item: "ITNO:ORDER_UNIT->PRICE_UNIT"
+"ITEM-1:BOX->PCS" = 12
+
+[delivery]
+url = "https://ingest.saas.example"   # base URL: /v1/installations/register, /inventory, /v1/proposal-states
+ca_file = "/config/receiver-ca.pem"
+client_cert = "/run/secrets/m3sync_client.crt"
+client_key = "/run/secrets/m3sync_client.key"
+max_pending = 100000
+retention_keep = 10000
+
+[events]
+enabled = false                   # default: polling only, no listening socket

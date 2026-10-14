@@ -1,0 +1,19 @@
+# tests/test_p0.py::test_p0_02_created_and_removed_between_scans_is_a_blind_spot
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# P0 proposal created and removed between scans: the harness shows the polling blind spot.
+# No invented recovery, no release event, no zero-loss claim.
+
+
+== scan 1
+[T+00:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+00:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+00:00] queued seq=1 100/4300001/1/0 state=active
+[T+00:00] deliver seq=1 -> 200 applied
+[T+02:00] source: 100/4300002/1/0 created at T+02:00, notification dropped
+[T+06:00] source: 100/4300002/1/0 removed at T+06:00, notification dropped
+
+== scan 2 at T+15:00
+[T+15:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+15:00] receiver: {'100/4300001/1/0': ('active', 1)}
+[T+15:00] BLIND SPOT (by design of state sync): 100/4300002/1/0 existed for 4 minutes and was never observed. Polling cannot reconstruct it; a durable change source would be required.

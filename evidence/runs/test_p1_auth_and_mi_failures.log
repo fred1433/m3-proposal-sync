@@ -1,0 +1,26 @@
+# tests/test_p1.py::test_p1_auth_and_mi_failures
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# P1 expired credentials, MI error inside HTTP 200, denied transactions, untrusted certificate:
+# never an empty successful scan, never an insecure fallback.
+
+[T+00:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+00:00] EXPORTMI scan complete: 2 rows in 1 page(s)
+[T+00:00] queued seq=1 100/6100001/1/0 state=active
+[T+00:00] queued seq=2 100/6100002/1/0 state=active
+[T+00:00] deliver seq=1 -> 200 applied
+[T+00:00] deliver seq=2 -> 200 applied
+[T+15:00] scan not authoritative (page 1 failed: auth: HTTP 401 from EXPORTMI/Select); no absence processing, checkpoint not advanced
+[T+30:00] scan not authoritative (page 1 failed: auth: HTTP 401 from EXPORTMI/Select); no absence processing, checkpoint not advanced
+[T+45:00] scan not authoritative (page 1 failed: auth: HTTP 401 from EXPORTMI/Select); no absence processing, checkpoint not advanced
+[T+45:00] fault auth401: complete=False reason='page 1 failed: auth: HTTP 401 from EXPORTMI/Select'
+[T+60:00] scan not authoritative (page 1 failed: nok: simulated MI error (NOK)); no absence processing, checkpoint not advanced
+[T+75:00] scan not authoritative (page 1 failed: nok: simulated MI error (NOK)); no absence processing, checkpoint not advanced
+[T+90:00] scan not authoritative (page 1 failed: nok: simulated MI error (NOK)); no absence processing, checkpoint not advanced
+[T+90:00] fault nok: complete=False reason='page 1 failed: nok: simulated MI error (NOK)'
+[T+90:00] receiver after 6 failed scans: {'100/6100001/1/0': ('active', 1), '100/6100002/1/0': ('active', 2)}
+[T+90:00] PPS170MI/RelPOP: forbidden: PPS170MI/RelPOP is not in the read-only allowlist
+[T+90:00] PPS170MI/UpdPOP: forbidden: PPS170MI/UpdPOP is not in the read-only allowlist
+[T+90:00] PPS170MI/DelPlannedPO: forbidden: PPS170MI/DelPlannedPO is not in the read-only allowlist
+[T+90:00] HTTPS endpoint with a certificate from an untrusted CA: auth: untrusted server certificate: self-signed certificate in certificate chain
+[T+90:00] plain HTTP to a non-loopback host: transport: refusing non-HTTPS endpoint http://10.20.30.40

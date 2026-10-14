@@ -1,0 +1,6 @@
+# tests/test_judge_sequences.py::test_a06_v1_program_only_envelope_is_not_an_empty_success
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A06: a v1 envelope without MIRecord is not accepted as an empty result (unverified shape).
+
+[T+00:00] Program-only envelope: protocol: v1 response without MIRecord (unverified empty shape is not accepted)

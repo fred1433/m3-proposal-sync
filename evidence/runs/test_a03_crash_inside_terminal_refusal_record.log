@@ -1,0 +1,8 @@
+# tests/test_judge_sequences.py::test_a03_crash_inside_terminal_refusal_record
+# outcome: PASSED
+# real agent processes, wall-clock time; M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A03: the process is killed inside the transaction that records a terminal refusal: nothing is
+# forgotten; after restart the proposal is delivered.
+
+run 1 killed inside the refusal transaction: exit 137; outbox [(1, 'pending')]
+run 2 exit 0; receiver {'100/5800001/1/0': ('active', 2)}

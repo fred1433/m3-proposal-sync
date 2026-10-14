@@ -1,0 +1,9 @@
+tested code: src, sim, tests and Dockerfile identified by the tree ids below (equal to those of the commit that contains this file)
+tree ids src:sim:tests (index): 6589330e97aa1865525a26dd5bec69c68953a0ec:e8e8320e25fb18e1f92e781ff906fed81bf3babb:368ce163a7d191ac521151053f7c3efb0ded227b
+date_utc: 2026-10-14
+runtime: docker image m3sync-test (python:3.12.7-slim, linux), run as uid 10001
+simulator sha256: c9918d88393ca0891263ae542542f28ede5f73ccac0d8e3bfdfb2bd7bba03bea
+command: python -m pytest -v -p no:cacheprovider --junitxml=evidence/junit.xml
+result: 66 passed, 1 skipped in 76.14s (0:01:16)
+agent image ExposedPorts: null
+agent image Healthcheck: ["CMD","m3sync","health","--config","/config/agent.toml"]

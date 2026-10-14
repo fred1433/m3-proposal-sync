@@ -1,0 +1,14 @@
+# tests/test_review_regressions.py::test_r04_terminal_refusal_is_resent_at_next_scan
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A delivery refused for good (400) is not forgotten: the key is re-observed and re-sent at the next scan.
+
+[T+00:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+00:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+00:00] queued seq=1 100/4400001/1/0 state=active
+[T+00:00] ERROR deliver seq=1 -> 400 invalid: terminal for this delivery; 100/4400001/1/0 will be re-sent with its current state at the next scan
+[T+00:00] after refusal: outbox {'rejected': 1}, receiver {}
+[T+15:00] EXPORTMI scan complete: 1 rows in 1 page(s)
+[T+15:00] queued seq=2 100/4400001/1/0 state=active
+[T+15:00] deliver seq=2 -> 200 applied
+[T+15:00] next scan: outbox {'delivered': 1, 'rejected': 1}, receiver {'100/4400001/1/0': ('active', 2)}

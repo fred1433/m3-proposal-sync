@@ -1,0 +1,18 @@
+# tests/test_p1.py::test_p1_money_cases
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# P1 real money/quantity cases under the explicit value policy (PPQT assumed in PUUN).
+
+[T+00:00] price per 1                                      value=125.0 EUR status=ok                       eligible=True []
+[T+00:00] price per 100 (PUCD=100)                         value=125 EUR status=ok                       eligible=True []
+[T+00:00] boundary: exactly the threshold                  value=100 EUR status=ok                       eligible=True []
+[T+00:00] just below the threshold                         value=99.90 EUR status=ok                       eligible=False ['value 99.9 EUR below 100']
+[T+00:00] ITEM-1: order unit BOX, price unit PCS, 1 BOX = 12 PCS value=120 EUR status=ok                       eligible=True []
+[T+00:00] same units on another item: no conversion declared value=None EUR status=unknown_unit_conversion  eligible=False ['value unknown (unknown_unit_conversion)']
+[T+00:00] unknown unit conversion                          value=None EUR status=unknown_unit_conversion  eligible=False ['value unknown (unknown_unit_conversion)']
+[T+00:00] 99.995 against 100: no rounding before comparison value=99.9950 EUR status=ok                       eligible=False ['value 99.995 EUR below 100']
+[T+00:00] missing order unit                               value=None EUR status=missing_unit             eligible=False ['value unknown (missing_unit)']
+[T+00:00] zero price                                       value=None EUR status=unknown_price            eligible=False ['value unknown (unknown_price)']
+[T+00:00] currency without threshold                       value=125.0 SEK status=ok                       eligible=False ['value unknown (no threshold for SEK)']
+[T+00:00] non-numeric quantity                             value=None EUR status=bad_number               eligible=False ['value unknown (bad_number)']
+[T+00:00] zero price with unknown_value=include -> eligible=True

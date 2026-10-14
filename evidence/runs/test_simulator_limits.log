@@ -1,0 +1,6 @@
+# tests/test_simulator_contract.py::test_simulator_limits
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# Simulator contract: maxrecs caps the page, the 10,000-record ceiling applies, HDRS=1 adds a header.
+
+[T+00:00] maxrecs=7 -> 7 rows; maxrecs=0 over 10005 rows -> 10000 rows; HDRS=1 -> [{'REPL': 'POPLPN|POITNO'}, {'REPL': '1|ITEM-1'}]

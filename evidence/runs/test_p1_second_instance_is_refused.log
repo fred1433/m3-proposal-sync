@@ -1,0 +1,7 @@
+# tests/test_p1.py::test_p1_second_instance_is_refused
+# outcome: PASSED
+# real agent processes, wall-clock time; M3 source behaviour is SIMULATED (sim/m3sim.py)
+# P1 a second writer on the same data directory is prevented.
+
+in-process second Store: another agent instance holds /tmp/pytest-of-m3sync/pytest-0/test_p1_second_instance_is_ref0/data/agent.lock
+second agent process: exit 1, last line: m3sync.store.LockedError: another agent instance holds /tmp/pytest-of-m3sync/pytest-0/test_p1_second_instance_is_ref0/data/agent.lock

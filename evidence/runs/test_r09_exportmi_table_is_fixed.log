@@ -1,0 +1,9 @@
+# tests/test_review_regressions.py::test_r09_exportmi_table_is_fixed
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# EXPORTMI can read any table the account may read; the agent's table and prefix are fixed to MPOPLP/PO.
+
+[T+00:00] {'table': 'MITMAS'}: extract.table/prefix are fixed to MPOPLP/PO; the agent reads no other table
+[T+00:00] {'table': 'CMNUSR', 'prefix': 'JU'}: extract.table/prefix are fixed to MPOPLP/PO; the agent reads no other table
+[T+00:00] {'prefix': 'MM'}: extract.table/prefix are fixed to MPOPLP/PO; the agent reads no other table
+[T+00:00] query: POCONO,POPLPN,POPLPS,POPLP2,POFACI,POWHLO,POITNO,POSUNO,POBUYE,POPSTS,POPPQT,POPUUN,POPUPR,POPPUN,POPUCD,POCUCD,PODLDT,POLMDT,POCHNO,POLMTS from MPOPLP where POPLPN >= 1

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "m3-proposal-sync"
+version = "0.1.0"
+description = "Reference agent and failure harness: read-only M3 proposal reconciliation, outbound-only idempotent delivery"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = ["cryptography>=42"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+m3sync = "m3sync.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "-ra"

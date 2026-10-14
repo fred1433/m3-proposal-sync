@@ -1,0 +1,6 @@
+# tests/test_judge_sequences.py::test_a17_value_policy_edges
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A17: 99.995 does not pass a 100 threshold; a missing unit is unknown, not ok.
+
+[T+00:00] 99.995 vs 100: eligible=False ('value 99.995 EUR below 100',); missing unit: status=missing_unit eligible=False

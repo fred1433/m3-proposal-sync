@@ -1,0 +1,83 @@
+# tests/test_p0.py::test_p0_04_middle_page_fails_or_truncated
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# P0 middle page fails or is truncated: no destructive reconciliation, last complete-scan marker
+# does not advance, retry stays safe.
+
+
+== scan 1: baseline
+[T+00:00] registered: generation 1; receiver holds 0 keys; local view resynchronized (dropped 0 pending, imported 0, reset 0)
+[T+00:00] EXPORTMI scan complete: 22 rows in 6 page(s)
+[T+00:00] queued seq=1 100/5000001/1/0 state=active
+[T+00:00] queued seq=2 100/5000001/1/1 state=active
+[T+00:00] queued seq=3 100/5000001/1/2 state=active
+[T+00:00] queued seq=4 100/5000002/1/0 state=active
+[T+00:00] queued seq=5 100/5000002/2/0 state=active
+[T+00:00] queued seq=6 100/5000002/3/0 state=active
+[T+00:00] queued seq=7 100/5000003/1/0 state=active
+[T+00:00] queued seq=8 100/5000004/1/0 state=active
+[T+00:00] queued seq=9 100/5000004/1/1 state=active
+[T+00:00] queued seq=10 100/5000004/1/2 state=active
+[T+00:00] queued seq=11 100/5000004/1/3 state=active
+[T+00:00] queued seq=12 100/5000005/1/0 state=active
+[T+00:00] queued seq=13 100/5000005/2/0 state=active
+[T+00:00] queued seq=14 100/5000006/1/0 state=active
+[T+00:00] queued seq=15 100/5000007/1/0 state=active
+[T+00:00] queued seq=16 100/5000008/1/0 state=active
+[T+00:00] queued seq=17 100/5000009/1/0 state=active
+[T+00:00] queued seq=18 100/5000010/1/0 state=active
+[T+00:00] queued seq=19 100/5000011/1/0 state=active
+[T+00:00] queued seq=20 100/5000011/2/0 state=active
+[T+00:00] queued seq=21 100/5000011/3/0 state=active
+[T+00:00] queued seq=22 100/5000011/4/0 state=active
+[T+00:00] deliver seq=1 -> 200 applied
+[T+00:00] deliver seq=2 -> 200 applied
+[T+00:00] deliver seq=3 -> 200 applied
+[T+00:00] deliver seq=4 -> 200 applied
+[T+00:00] deliver seq=5 -> 200 applied
+[T+00:00] deliver seq=6 -> 200 applied
+[T+00:00] deliver seq=7 -> 200 applied
+[T+00:00] deliver seq=8 -> 200 applied
+[T+00:00] deliver seq=9 -> 200 applied
+[T+00:00] deliver seq=10 -> 200 applied
+[T+00:00] deliver seq=11 -> 200 applied
+[T+00:00] deliver seq=12 -> 200 applied
+[T+00:00] deliver seq=13 -> 200 applied
+[T+00:00] deliver seq=14 -> 200 applied
+[T+00:00] deliver seq=15 -> 200 applied
+[T+00:00] deliver seq=16 -> 200 applied
+[T+00:00] deliver seq=17 -> 200 applied
+[T+00:00] deliver seq=18 -> 200 applied
+[T+00:00] deliver seq=19 -> 200 applied
+[T+00:00] deliver seq=20 -> 200 applied
+[T+00:00] deliver seq=21 -> 200 applied
+[T+00:00] deliver seq=22 -> 200 applied
+[T+00:00] source: 100/5000010/1/0 really deleted
+
+== scan with fault 'http500' on page 3
+[T+15:00] MI EXPORTMI/Select attempt 1 failed (http: HTTP 500); retry in 0.07s
+[T+15:00] MI EXPORTMI/Select attempt 2 failed (http: HTTP 500); retry in 0.85s
+[T+15:01] MI EXPORTMI/Select attempt 3 failed (http: HTTP 500); retry in 1.53s
+[T+15:02] scan not authoritative (page 3 failed: http: HTTP 500); no absence processing, checkpoint not advanced
+[T+15:02] scan: complete=False reason='page 3 failed: http: HTTP 500'; last_complete_scan=1
+
+== scan with fault 'truncate' on page 3
+[T+30:02] scan not authoritative (page 3: 17 values for 20 fields (truncated record, or the separator '|' occurs inside the data: choose another extract.separator)); no absence processing, checkpoint not advanced
+[T+30:02] scan: complete=False reason="page 3: 17 values for 20 fields (truncated record, or the separator '|' occurs inside the data: choose another extract.separator)"; last_complete_scan=1
+
+== scan with fault 'nok' on page 3
+[T+45:02] scan not authoritative (page 3 failed: nok: simulated MI error (NOK)); no absence processing, checkpoint not advanced
+[T+45:02] scan: complete=False reason='page 3 failed: nok: simulated MI error (NOK)'; last_complete_scan=1
+
+== scan without fault #1
+[T+60:02] EXPORTMI scan complete: 21 rows in 6 page(s)
+[T+60:02] absence check 100/5000010/1/0: missing 1/2; waiting
+[T+60:02] scan: complete=True; last_complete_scan=5
+
+== scan without fault #2
+[T+75:02] EXPORTMI scan complete: 21 rows in 6 page(s)
+[T+75:02] absence check 100/5000010/1/0: not found in 2 authoritative scans and on targeted read -> not_observed
+[T+75:02] queued seq=23 100/5000010/1/0 state=not_observed
+[T+75:02] deliver seq=23 -> 200 applied
+[T+75:02] scan: complete=True; last_complete_scan=6
+[T+75:02] receiver 100/5000010/1/0: ('not_observed', 23)

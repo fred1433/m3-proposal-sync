@@ -1,0 +1,8 @@
+# tests/test_p1.py::test_p1_vault
+# outcome: PASSED
+# in-process checks, then one real agent process; M3 source behaviour is SIMULATED (sim/m3sim.py)
+# Vault: AES-GCM at rest, key file permissions enforced, secrets absent from logs and reprs.
+
+vault file contains the plaintext: False; repr of secret: Secret(***)
+key file mode 644: key file /tmp/pytest-of-m3sync/pytest-0/test_p1_vault0/k is accessible to group/others; chmod 400 or 600 it
+agent run exit 0; M3 password present in agent output: False

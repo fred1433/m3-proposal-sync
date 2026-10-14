@@ -1,0 +1,10 @@
+# tests/test_judge_sequences.py::test_a05_v2_not_processed_is_not_an_empty_success
+# outcome: PASSED
+# times are SIMULATED elapsed time (FakeClock); M3 source behaviour is SIMULATED (sim/m3sim.py)
+# A05: a v2 response with notProcessed (or only an errorType) is an error, never an empty result.
+
+[T+00:00] notProcessed: protocol: v2 transaction not processed
+[T+00:00] errorType only: nok: ServerReturnedNOK
+[T+00:00] two results: protocol: v2 response must carry exactly one result
+[T+00:00] other transaction: protocol: v2 result for 'GetPOProp', expected 'Select'
+[T+00:00] end to end through the ionapi_v2 profile: refused

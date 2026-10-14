@@ -1,0 +1,22 @@
+# tests/test_p0.py::test_p0_07_process_killed_at_persistence_boundaries[after_receiver_commit_ack_lost]
+# outcome: PASSED
+# real agent processes, wall-clock time; M3 source behaviour is SIMULATED (sim/m3sim.py)
+# P0 agent process killed (os._exit, no cleanup) at each persistence boundary: no checkpoint advances
+# beyond durably recoverable work; after restart every proposal has exactly one receiver effect.
+
+run 0: receiver commits seq 1 and drops its acknowledgement; agent keeps seq 1 pending (exit 0, receiver effects=1)
+run 1 below resends seq 1 and is killed right after the receiver's answer
+run 1 (M3SYNC_CRASH_AT=after_send_before_ack_record): exit code 137
+after crash: agent scans=[(1, 1), (2, 1)] outbox=[(1, 'dropped_by_resync'), (2, 'dropped_by_resync'), (3, 'dropped_by_resync'), (4, 'pending'), (5, 'pending')] last_complete_scan=('2',)
+after crash: receiver effects=2
+run 2 exit 0; run 3 exit 0
+  agent: registered: generation 3; receiver holds 2 keys; local view resynchronized (dropped 2 pending, imported 2, reset 1)
+  agent: EXPORTMI scan complete: 3 rows in 1 page(s)
+  agent: queued seq=6 100/4700003/1/0 state=active
+  agent: deliver seq=6 -> 200 applied
+  agent: once: complete=True reason=None rows=3 queued=1 outbox={'delivered': 1, 'dropped_by_resync': 5}
+  agent: registered: generation 4; receiver holds 3 keys; local view resynchronized (dropped 0 pending, imported 3, reset 0)
+  agent: EXPORTMI scan complete: 3 rows in 1 page(s)
+  agent: once: complete=True reason=None rows=3 queued=0 outbox={'delivered': 1, 'dropped_by_resync': 5}
+receiver effects per key: {'100/4700001/1/0': 1, '100/4700002/1/0': 1, '100/4700003/1/0': 1}
+agent outbox: [(1, 'dropped_by_resync'), (2, 'dropped_by_resync'), (3, 'dropped_by_resync'), (4, 'dropped_by_resync'), (5, 'dropped_by_resync'), (6, 'delivered')]
